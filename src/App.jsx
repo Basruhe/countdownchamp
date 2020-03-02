@@ -9,10 +9,23 @@ import { Component } from "react";
 import "./App.css";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      deadline: "December 24, 2017",
+      newDeadline: ""
+    };
+  }
+
+  changeDeadline() {
+    console.log("State looks like this:", this.state);
+    this.setState({ deadline: this.state.newDeadline });
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-title">Countdown to December 25, 2017</div>
+        <div className="App-title">Countdown to {this.state.deadline}</div>
 
         <div>
           <div className="Clock-days">14 Days</div>
@@ -22,12 +35,20 @@ class App extends Component {
         </div>
 
         <div>
-          <input placeholder="new date" />
-          <button>submit</button>
+          <input
+            placeholder="new date"
+            // onChange={event => console.log("event", event.target.value)}
+            onChange={event =>
+              this.setState({ newDeadline: event.target.value })
+            }
+          />
+
+          <button onClick={() => this.changeDeadline()}>submit</button>
         </div>
       </div>
     );
   }
 }
+// notes: you need an anonymous function for changeDeadline on buttonclick. Having a function without a handler creates loops in your app, resulting in crashes. Instead we use an anyonymous function to call the function just once.
 
 export default App;
