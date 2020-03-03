@@ -24,6 +24,17 @@ class Clock extends Component {
     setInterval(() => this.getTimeUntil(this.props.deadline), 1000);
   }
 
+  // leading0(num) {
+  //   if (num < 10) {
+  //     return "0" + num;
+  //   }
+  //   return num;
+  // }
+  // cleaner, ternary expression version
+  leading0(num) {
+    return num < 10 ? "0" + num : num;
+  }
+
   // Calculate the clock time. First: current date is subtracted from the deadline. Then, this time (in milliseconds!) is converted into days, hours, etc
   // You use the modulo (%) so that you get the remainder. (example: you don't want to see millions of seconds, but only the leftover seconds that are not part of the minutes,hours,etc)
   getTimeUntil(deadline) {
@@ -53,10 +64,16 @@ class Clock extends Component {
 
     return (
       <div>
-        <div className="Clock-days">{this.state.days} Days</div>
-        <div className="Clock-hours">{this.state.hours} Hours</div>
-        <div className="Clock-minutes">{this.state.minutes} Minutes</div>
-        <div className="Clock-seconds">{this.state.seconds} Seconds</div>
+        <div className="Clock-days">{this.leading0(this.state.days)} Days</div>
+        <div className="Clock-hours">
+          {this.leading0(this.state.hours)} Hours
+        </div>
+        <div className="Clock-minutes">
+          {this.leading0(this.state.minutes)} Minutes
+        </div>
+        <div className="Clock-seconds">
+          {this.leading0(this.state.seconds)} Seconds
+        </div>
       </div>
     );
   }
