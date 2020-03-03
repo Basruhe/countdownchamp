@@ -19,18 +19,12 @@ class Clock extends Component {
     this.getTimeUntil(this.props.deadline);
   }
 
-  // To keep the clock up to date, getTimeUntil needs to keep running (controlled, not infinite!). You use setInterval for this, set at every 1000 ms (=1s).
+  // To keep the clock up to date, getTimeUntil needs to keep running (controlled, not infinite!) when the component already runs. You use setInterval for this, set at every 1000 ms (=1s).
   componentDidMount() {
     setInterval(() => this.getTimeUntil(this.props.deadline), 1000);
   }
 
-  // leading0(num) {
-  //   if (num < 10) {
-  //     return "0" + num;
-  //   }
-  //   return num;
-  // }
-  // cleaner, ternary expression version
+  // Function to add a 0 before single-digit minutes/hours/days/etc. Styling
   leading0(num) {
     return num < 10 ? "0" + num : num;
   }
@@ -45,10 +39,16 @@ class Clock extends Component {
     const hours = Math.floor((time / (1000 * 60 * 60)) % 24);
     const days = Math.floor(time / (1000 * 60 * 60 * 24));
 
-    console.log("seconds", seconds);
-    console.log("minutes", minutes);
-    console.log("hours", hours);
-    console.log("days", days);
+    console.log(
+      "seconds",
+      seconds,
+      "minutes",
+      minutes,
+      "hours",
+      hours,
+      "days",
+      days
+    );
 
     this.setState({
       days: days,
@@ -59,7 +59,7 @@ class Clock extends Component {
   }
 
   render() {
-    // // moved to componentwillmount, so that it only updates once. (note; how to get the clock to keep counting down??)
+    // // moved to componentwillmount, so that it only updates once.
     // this.getTimeUntil(this.props.deadline);
 
     return (
